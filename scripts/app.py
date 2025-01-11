@@ -1,24 +1,24 @@
 import pandas as pd
 import pickle
 
+from pathlib import Path
+
 from functools import lru_cache
 from pydantic import BaseModel
 
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import LabelEncoder
-
 from fastapi import FastAPI
 
-MODEL_PATH = 'models/001_model.pkl'
-ONE_HOT_ENCODER_PATH = "models/onehot_encoder.pkl"
-LABEL_ENCODER_PATH = "models/label_encoder.pkl"
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR.parent / "models" / "01_model.pkl"
+ONE_HOT_ENCODER_PATH = BASE_DIR.parent / "models" / "OneHot_encoder.pkl"
+LABEL_ENCODER_PATH = BASE_DIR.parent / "models" / "Label_encoder.pkl"
 
 app = FastAPI()
 
 # Define the input data model using Pydantic
 class InputData(BaseModel):
+    Brand: str
     Year: int
-    Model: str
     UsedOrNew: str
     Transmission: str
     DriveType: str
@@ -60,11 +60,11 @@ def preprocess_input_data(input_data):
     df_encoded = pd.concat([df.drop(categorical_cols_for_one_hot, axis=1),
                             one_hot_df], axis=1)
     
-    # Encode 'Model' and 'BodyType' columns using LabelEncoder
+    # Encode 'Brand' and 'BodyType' columns using LabelEncoder
     try:
-        df_encoded["Model"] = label_encoder.transform(df["Model"])
+        df_encoded["Brand"] = label_encoder.transform(df["Brand"])
     except ValueError:
-        df_encoded["Model"] = label_encoder.transform([label_encoder.classes_[0]])
+        df_encoded["Brand"] = label_encoder.transform([label_encoder.classes_[0]])
     try:
         df_encoded['BodyType'] = label_encoder.transform(df['BodyType'])
     except ValueError:
