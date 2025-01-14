@@ -251,10 +251,8 @@ def test_split_data():
     assert len(y_train) == 3, f"Expected 3 rows in y_train, but got {len(y_train)}."
     assert len(y_test) == 2, f"Expected 2 rows in y_test, but got {len(y_test)}."
 
-    # Check that the target column is not in X_train and X_test
     assert target not in X_train.columns, f"Target column '{target}' found in X_train."
     assert target not in X_test.columns, f"Target column '{target}' found in X_test."
     
-    # Check that the target column is in y_train and y_test
     assert target in y_train.name, f"Target column '{target}' not found in y_train."
     assert target in y_test.name, f"Target column '{target}' not found in y_test."
