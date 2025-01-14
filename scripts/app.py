@@ -1,5 +1,7 @@
 import pandas as pd
 import pickle
+import logging
+import os
 
 from pathlib import Path
 
@@ -39,12 +41,15 @@ def healthcheck():
 # lru_cache ensures the model is loaded only once to improve performance
 @lru_cache(maxsize=1)
 def get_model(model_path):
-    print("Model Loading...")
+    logging.info("Loading model...")
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file not found: {model_path}")
     with open(model_path, 'rb') as f:
         return pickle.load(f)
+    logging.info("Model loaded successfully")
 
 def preprocess_input_data(input_data):
-    print("Preprocessing data...")
+    logging.info("Preprocessing data...")
     
     df = pd.DataFrame([input_data])
 

@@ -71,7 +71,7 @@ def show_unique_values(df: pd.DataFrame, cols: List[str]) -> None:
     for col in cols:
         print(len(df[col].unique()))
         
-def oneHot_encodeing(categorical_cols: List[str], df: pd.DataFrame) -> pd.DataFrame:
+def oneHot_encoding(categorical_cols: List[str], df: pd.DataFrame) -> pd.DataFrame:
     try:
         df = df.copy()
         one_hot_encoder = OneHotEncoder(sparse_output=False)
@@ -82,7 +82,7 @@ def oneHot_encodeing(categorical_cols: List[str], df: pd.DataFrame) -> pd.DataFr
         df_encoded = pd.concat([df.drop(categorical_cols, axis=1),
                                 one_hot_df], axis=1)
         
-        save_with_pickle(one_hot_encoder, "../models/OneHot_encoder.pkl")
+        # save_with_pickle(one_hot_encoder, "../models/OneHot_encoder.pkl")
         
         return df_encoded
     except KeyError as e:
@@ -97,7 +97,7 @@ def label_encoder(categorical_cols: List[str], df: pd.DataFrame) -> pd.DataFrame
     df[categorical_cols[0]] = label_encoder.fit_transform(df[categorical_cols[0]])
     df[categorical_cols[1]] = label_encoder.fit_transform(df[categorical_cols[1]])
     
-    save_with_pickle(label_encoder, "../models/Label_encoder.pkl")
+    # save_with_pickle(label_encoder, "../models/Label_encoder.pkl")
     return df
 
 def split_data(df: pd.DataFrame, target: str, test_size: float) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
