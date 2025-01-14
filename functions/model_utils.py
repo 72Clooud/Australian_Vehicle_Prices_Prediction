@@ -28,13 +28,13 @@ def train_model(X_train: pd.DataFrame,
     return best_model 
 
 
-def Evaluate_model(X_test: pd.DataFrame,
+def evaluate_model(X_test: pd.DataFrame,
                    y_test: pd.Series,
                    model: XGBRegressor) -> None:
     # Predict on test set
     reg_pred = model.predict(X_test)
     
     print(f'Mean Squared Error: {mean_squared_error(y_test, reg_pred)}')
-    print(f'Mean Absolute Error: {root_mean_squared_error(y_test, reg_pred)}')
-    print(f'Root Mean Squared Error: {mean_absolute_error(y_test, reg_pred)}')
+    print(f'Mean Absolute Error: {mean_absolute_error(y_test, reg_pred)}')
+    print(f'Root Mean Squared Error: {root_mean_squared_error(y_test, reg_pred)}')
     print(f'R2 Score: {r2_score(y_test, reg_pred)}')

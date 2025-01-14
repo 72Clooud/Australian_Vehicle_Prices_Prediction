@@ -1,13 +1,10 @@
 import pytest
 import pandas as pd
 import os
-import pickle
-
 
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from tempfile import NamedTemporaryFile
-from io import StringIO
 
 from functions.data_processing import ( 
     save_with_pickle,
