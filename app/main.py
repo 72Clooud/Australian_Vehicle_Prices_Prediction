@@ -3,10 +3,11 @@ import pickle
 import logging
 import os
 
+from typing import Literal
 from pathlib import Path
 
 from functools import lru_cache
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from fastapi import FastAPI
 
@@ -20,17 +21,23 @@ app = FastAPI()
 # Define the input data model using Pydantic
 class InputData(BaseModel):
     Brand: str
-    Year: int
-    UsedOrNew: str
-    Transmission: str
-    DriveType: str
-    FuelType: str
-    FuelConsumption: float
+    Year: int = Field(..., ge=1980, le=2024)
+    UsedOrNew: Literal["USED", "NEW", "DEMO"]
+    Transmission: Literal["Automatic", "Manual"]
+    DriveType: Literal["4WD", "AWD", "Front", "Other", "Rear"]
+    FuelType: Literal["Diesel", "Hybrid", "LPG", "Premium", "Unleaded"]
+    FuelConsumption: float = Field(..., ge=1)
     Kilometres: int
-    CylindersinEngine: int
+    CylindersinEngine: int = Field(..., ge=1, le=12)
     BodyType: str
-    Doors: int
-    Seats: int   
+    Doors: int = Field(..., ge=2, le=12)
+    Seats: int = Field(..., ge=2, le=12)
+
+    @model_validator(mode="before")
+    def validate_model(cls, values):
+        if values["UsedOrNew"] == "NEW" and values["Kilometres"] > 0:
+            raise ValueError("New cars should have 0 kilometers")
+        return values
 
 # Healthcheck endpoint to verify application status
 @app.get("/healthcheck")
@@ -81,6 +88,6 @@ def preprocess_input_data(input_data):
 @app.post('/predict')
 def predict(input_data: InputData):
     model = get_model(MODEL_PATH)
-    df = preprocess_input_data(input_data.dict())
+    df = preprocess_input_data(input_data.model_dump())
     pred = model.predict(df)
     return {"prediction": pred.tolist()}
