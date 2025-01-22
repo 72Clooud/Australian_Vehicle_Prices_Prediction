@@ -83,7 +83,7 @@ class Encoder(SaveModel):
         self.df = pd.concat([self.df.drop(cols, axis=1),
                                 one_hot_df], axis=1)
         if save_model:
-            self.save_with_pickle(one_hot_encoder, "./models/OneHot_encoder.pkl")
+            self.save_with_pickle(one_hot_encoder, "./models/3OneHot_encoder.pkl")
         return self
     
     def label_encode(self, cols: List[str], save_model: bool = True) -> "Encoder":
@@ -91,7 +91,7 @@ class Encoder(SaveModel):
         for col in cols:
             self.df[col] = label_encoder.fit_transform(self.df[col])
         if save_model:
-            self.save_with_pickle(label_encoder, "./models/Label_encoder.pkl")
+            self.save_with_pickle(label_encoder, "./models/3Label_encoder.pkl")
         return self
     
     def get_dataframe(self) -> pd.DataFrame:
@@ -145,8 +145,7 @@ class PipelineManager:
             .remove_POA_values()\
             .from_cat_to_int(cols_for_convert_to_int)\
             .from_cat_to_float(cols_for_convert_to_float)\
-            .convert_to_int(cols_to_int)\
-            .remove_outliers(outliers_vals)
+            .convert_to_int(cols_to_int)
         self.df = processor.get_dataframe()
         
         encoder = Encoder(self.df)
@@ -169,7 +168,7 @@ if __name__ == "__main__":
         cols_for_convert_to_int=['Seats', 'Doors', 'CylindersinEngine', 'Kilometres'],
         cols_for_convert_to_float=['FuelConsumption'],
         cols_to_int=['Price', 'Year'],
-        outliers_vals={"Year": (2000, 2024),"FuelConsumption": (1.0, 25.0), "CylindersinEngine": (2, 10), "Seats": (2, 15), "Price": (0, 210000)}
+        outliers_vals={"Year": (2000, 2024),"FuelConsumption": (1.0, 25.0), "CylindersinEngine": (2, 10), "Seats": (2, 15), "Price": (1000, 100000)}
     )
 
     X = processed_data.drop(columns=["Price"])
@@ -189,4 +188,4 @@ if __name__ == "__main__":
     model = model_handler.train(X_train, y_train, param_grid)
     model_handler.evaluate(X_test, y_test)
 
-    model_handler.save_with_pickle(model, "./models/xgb_model.pkl")
+    model_handler.save_with_pickle(model, "./models/3xgb_model.pkl")
