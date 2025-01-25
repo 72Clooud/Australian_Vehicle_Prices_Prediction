@@ -13,7 +13,7 @@ from fastapi import FastAPI
 
 class Config:
     BASE_DIR = Path(__file__).resolve().parent
-    MODEL_PATH = BASE_DIR.parent / "models" / "01_model.pkl"
+    MODEL_PATH = BASE_DIR.parent / "models" / "xgb_model.pkl"
     ONE_HOT_ENCODER_PATH = BASE_DIR.parent / "models" / "OneHot_encoder.pkl"
     LABEL_ENCODER_PATH = BASE_DIR.parent / "models" / "Label_encoder.pkl"
 
