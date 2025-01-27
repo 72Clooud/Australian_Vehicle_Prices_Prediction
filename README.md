@@ -1,8 +1,7 @@
 # Australian Vehicle Prices Prediction 🚗💰
 ## Project Overview
-The Australian Vehicle Prices Prediction project is designed to predict the prices of vehicles in Australia based on a variety 
-of features such as brand, year of production, fuel type, and more. This regression model aims to provide accurate price 
-estimates, making it valuable for car dealerships, online marketplaces, and individual users seeking to evaluate vehicle prices.
+![Image](https://github.com/user-attachments/assets/9ff731bc-7ab6-49d5-b5d6-6c049f9c97e3)
+The Australian Vehicle Prices Prediction project is designed to predict the prices of vehicles in Australia based on a variety of features such as brand, year of production, fuel type, and more. This regression model aims to provide accurate price estimates, making it valuable for car dealerships, online marketplaces, and individual users seeking to evaluate vehicle prices. The backend is built using **FastAPI**🚀 and can be run with **Docker**🐳, providing a **REST API** for easy integration. The **Streamlit**📊 frontend offers an interactive interface for visualizing predictions and is also containerized using **Docker** for seamless deployment.
 ## Features and Dataset 📊
 The model is trained on the following features:
 - Brand: Vehicle manufacturer (e.g., Toyota, Ford).
@@ -46,14 +45,47 @@ cd australian-vehicle-prices-prediction
 ```bash
 pip install -r requirements.txt
 ```
-### Running the Application 🚀
-1. Start the FastAPI server:
-```bash
-uvicorn main:app --reload
+### Running with Docker (FastApi) 🐳
+1. Build the Docker image:
+```docker
+docker build -t australian-vehicle-prices-fastapi -f Dockerfile.fastapi .
+```
+2. Run the Docker container:
+```docker
+docker run -p 8000:8000 australian-vehicle-prices-fastapi
+```
+3. Open your browser and navigate to:
+```docker
+http://127.0.0.1:8000/docs
+```
+### Running with Docker (Streamlit) 🐳
+1. Build the Docker image:
+```docker
+docker build -t australian-vehicle-prices-streamlit -f Dockerfile.streamlit .
+```
+2. Run the Docker container:
+```docker
+docker run -p 8501:8501 australian-vehicle-prices-streamlit
+```
+3. Open your browser and navigate to:
+```docker
+http://127.0.0.1:8501
+```
+### Running with Docker Compose 🐳
+1. Build and run both containers:
+```docker
+docker-compose up --build
 ```
 2. Open your browser and navigate to:
-```bash
+```docker
 http://127.0.0.1:8000/docs
+```
+```docker
+http://127.0.0.1:8501
+```
+3. Stopping the application: To stop the application, run:
+```docker
+docker-compose down
 ```
 This will open the interactive Swagger UI for testing the API.
 3. Use the /predict endpoint to submit vehicle data in JSON format and receive the predicted price.
@@ -73,19 +105,6 @@ This will open the interactive Swagger UI for testing the API.
   "Doors": 4,
   "Seats": 5
 }
-```
-### Running with Docker 🐳
-1. Build the Docker image:
-```docker
-docker build -t australian-vehicle-prices .
-```
-2. Run the Docker container:
-```docker
-docker run -p 8000:8000 australian-vehicle-prices
-```
-3. Open your browser and navigate to:
-```docker
-http://127.0.0.1:8000/docs
 ```
 You can test the API directly from the Swagger UI.
 ## Project Structure 🗂️
