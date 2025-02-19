@@ -3,3 +3,4 @@ __pycache__
 data
 /ml_models
 .venv
+.env

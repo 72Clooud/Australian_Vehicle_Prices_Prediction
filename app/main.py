@@ -1,5 +1,8 @@
 from fastapi import FastAPI
-from routes.prediction_routes import router as prediction_router
+from app.routes.prediction_routes import router as prediction_router
+from app.database.database import db
+
+db.init()
 
 app = FastAPI()
 

@@ -62,9 +62,9 @@ class SaveModel:
         self.path = path
         
     def save_with_pickle(self, model, file_path) -> pickle:
-        folder = os.path.dirname("../models")
+        folder = os.path.dirname("../ml_models")
         if not os.path.exists(folder):
-            os.mkdir("../models")
+            os.mkdir("../ml_models")
         with open(file_path, "wb") as file:
             pickle.dump(model, file)
         return self
@@ -83,7 +83,7 @@ class Encoder(SaveModel):
         self.df = pd.concat([self.df.drop(cols, axis=1),
                                 one_hot_df], axis=1)
         if save_model:
-            self.save_with_pickle(one_hot_encoder, "./models/3OneHot_encoder.pkl")
+            self.save_with_pickle(one_hot_encoder, "./ml_models/3OneHot_encoder.pkl")
         return self
     
     def label_encode(self, cols: List[str], save_model: bool = True) -> "Encoder":
@@ -91,7 +91,7 @@ class Encoder(SaveModel):
         for col in cols:
             self.df[col] = label_encoder.fit_transform(self.df[col])
         if save_model:
-            self.save_with_pickle(label_encoder, "./models/3Label_encoder.pkl")
+            self.save_with_pickle(label_encoder, "./ml_models/3Label_encoder.pkl")
         return self
     
     def get_dataframe(self) -> pd.DataFrame:
@@ -188,4 +188,4 @@ if __name__ == "__main__":
     model = model_handler.train(X_train, y_train, param_grid)
     model_handler.evaluate(X_test, y_test)
 
-    model_handler.save_with_pickle(model, "./models/3xgb_model.pkl")
+    model_handler.save_with_pickle(model, "./ml_models/3xgb_model.pkl")

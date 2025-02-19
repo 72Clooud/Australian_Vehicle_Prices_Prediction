@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from models.prediction_models import InputData
-from services.model_handler import ModelHandler
-from core.config import Config
+from app.models.prediction_models import InputData
+from app.services.model_handler import ModelHandler
+from app.core.config import Config
 
 # FastAPI application setup
 router = APIRouter()
