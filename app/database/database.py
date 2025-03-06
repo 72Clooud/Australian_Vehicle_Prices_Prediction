@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.core.config import Config
-from app.models.database_models import Base
+from app.models.prediction_models import Base
 
 class DatabaseSession:
     def __init__(self):

@@ -49,7 +49,7 @@ class ModelHandler:
         df = pd.DataFrame([input_data])
         
         # OneHotEncoding
-        categorical_cols_for_one_hot = ["UsedOrNew", "Transmission", "DriveType", "FuelType"]
+        categorical_cols_for_one_hot = ["UsedOrNew", "Transmission", "DriveType", "FuelType"] 
         one_hot_encoded = self.one_hot_encoder.transform(df[categorical_cols_for_one_hot])
         one_hot_df = pd.DataFrame(one_hot_encoded, columns=self.one_hot_encoder.get_feature_names_out(categorical_cols_for_one_hot))
         df_encoded = pd.concat([df.drop(categorical_cols_for_one_hot, axis=1), one_hot_df], axis=1)
