@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Response
 from app.schemes.prediction_schemes import PredictionInputData, PredictionOutputData
 from app.services.model_handler import ModelHandler
-from app.core.config import Config
+from app.core.config import settings
 from app.database.dependencis import get_db
 from app.models.prediction_models import Prediction
-from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -16,9 +15,9 @@ router = APIRouter(
 
 # Initialize the model handler
 model_handler = ModelHandler(
-    model_path=Config.MODEL_PATH,
-    one_hot_encoder_path=Config.ONE_HOT_ENCODER_PATH,
-    label_encoder_path=Config.LABEL_ENCODER_PATH,
+    model_path=settings.MODEL_PATH,
+    one_hot_encoder_path=settings.ONE_HOT_ENCODER_PATH,
+    label_encoder_path=settings.LABEL_ENCODER_PATH,
 )
 
 # Healthcheck endpoint to verify application status

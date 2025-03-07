@@ -1,18 +1,19 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import Config
+from app.core.config import settings
 from app.models.prediction_models import Base
 
 class DatabaseSession:
     def __init__(self):
         self._engine = create_engine(
-            f"postgresql://{Config.DB_USER}:{Config.DB_PASSWORD}@{Config.DB_HOST}:{Config.DB_PORT}/{Config.DB_NAME}",
+            f"postgresql://{settings.db_user}:{settings.db_password}@{settings.db_hostname}:{settings.db_port}/{settings.db_name}",
             echo=True
         )
 
         self._SessionLocal = sessionmaker(
             bind=self._engine,
             autoflush=False,
+            autocommit=False,
             expire_on_commit=False
         )
        
