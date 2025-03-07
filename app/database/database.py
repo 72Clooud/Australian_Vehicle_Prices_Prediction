@@ -1,7 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
-from app.models.prediction_models import Base
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class DatabaseSession:
     def __init__(self):
@@ -22,6 +24,5 @@ class DatabaseSession:
     
     def get_session(self):
         return self._SessionLocal()
-        
         
 db = DatabaseSession()

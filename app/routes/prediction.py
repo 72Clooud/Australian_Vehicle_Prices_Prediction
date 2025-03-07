@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Response
-from app.schemes.prediction_schemes import PredictionInputData, PredictionOutputData
+from app.schemes.prediction import PredictionInputData, PredictionOutputData
 from app.services.model_handler import ModelHandler
 from app.core.config import settings
 from app.database.dependencis import get_db
-from app.models.prediction_models import Prediction
+from app.models.prediction import Prediction
 from sqlalchemy.orm import Session
 from typing import List
 

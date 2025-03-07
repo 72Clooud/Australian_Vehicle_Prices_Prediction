@@ -1,8 +1,5 @@
 from sqlalchemy import Column, Integer, String, TIMESTAMP, DECIMAL, text
-from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime, timezone
-
-Base = declarative_base()
+from app.database.database import Base
 
 class Prediction(Base):
     __tablename__ = 'price_predictions'
