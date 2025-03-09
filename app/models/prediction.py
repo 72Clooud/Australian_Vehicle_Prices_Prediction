@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP, DECIMAL, text
+from sqlalchemy import Column, Integer, String, TIMESTAMP, DECIMAL, ForeignKey, text
 from app.database.database import Base
 
 class Prediction(Base):
@@ -19,3 +19,4 @@ class Prediction(Base):
     seats = Column(Integer, nullable=False)
     prediction_price = Column(DECIMAL, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('NOW()'))
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)

@@ -17,6 +17,7 @@ class PredictionInputData(BaseModel):
     Seats: int = Field(..., ge=2, le=12)
 
 class PredictionOutputData(BaseModel):
+    prediction_id: int 
     prediction_price: float
     brand: str
     production_year: int = Field(..., ge=1999, le=2024)
@@ -31,5 +32,6 @@ class PredictionOutputData(BaseModel):
     doors: int = Field(..., ge=2, le=12)
     seats: int = Field(..., ge=2, le=12)
     created_at: datetime
+    owner_id: int
     class Config:
         from_attributes = True
