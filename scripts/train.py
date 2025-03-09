@@ -130,7 +130,7 @@ class ModelHandler(SaveModel):
         
     @staticmethod
     def load_model(file_path: str) -> XGBRegressor:
-        with open(file_path, "rb") as f:
+        with open(file_path, "rb"):
             return pickle.load(file_path)   
 
 class PipelineManager:

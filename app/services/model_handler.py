@@ -66,11 +66,11 @@ class ModelHandler:
         return df_encoded
     
     def predict(self, input_data):
-        if self.model == None:
+        if self.model is None:
             self.load_model()
-        if self.one_hot_encoder == None:
+        if self.one_hot_encoder is None:
             self.load_one_hot_encoder()
-        if self.label_encoder == None:
+        if self.label_encoder is None:
             self.load_label_encoder()
         
         processed_data = self.process_input_data(input_data)

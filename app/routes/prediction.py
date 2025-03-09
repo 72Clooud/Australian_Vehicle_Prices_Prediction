@@ -71,7 +71,7 @@ def get_one_prediction(id: int, db: Session = Depends(get_db), current_user: int
 def delete_prediction(id: int, db: Session = Depends(get_db), current_user: int = Depends(get_current_user)):
     prediction_query = db.query(Prediction).filter(Prediction.prediction_id == id)
     prediction = prediction_query.first()
-    if prediction == None:
+    if prediction is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Prediction with {id} does not exist")
     prediction_query.delete(synchronize_session=False)

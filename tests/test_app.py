@@ -1,5 +1,4 @@
 import pytest
-import pandas as pd
 from fastapi.testclient import TestClient
 
 from app.main import app, ModelHandler, Config
@@ -62,7 +61,7 @@ class TestApp:
     def test_predict(self, data, model_h):
         
         model_handler = model_h        
-        processed_data = model_handler.process_input_data(data)
+        model_handler.process_input_data(data)
         response = client.post("/predict", json=data)
         assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         

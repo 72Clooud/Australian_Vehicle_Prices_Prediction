@@ -35,7 +35,7 @@ if __name__ == "__main__":
         st.write("")
         response = streamlit_app.get_predict(form_data)
         if "error" in response:
-            st.error(f"Comunication error with API")
+            st.error("Comunication error with API")
         else:
             prediction_list = response.get("prediction", [])
             if prediction_list:

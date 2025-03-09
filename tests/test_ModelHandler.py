@@ -51,7 +51,7 @@ class TestModelHandler:
         X_train, X_test, y_train, y_test = sample_data
         model_handler, param_grid = setup
         
-        model = model_handler.train(X_train, y_train, param_grid)
+        model_handler.train(X_train, y_train, param_grid)
         model_handler.evaluate(X_test, y_test)
 
         captured = capsys.readouterr()
