@@ -15,11 +15,12 @@ class ModelHandler:
         self.model = None
         self.one_hot_encoder = None
         self.label_encoder = None
+        
+        self.load_model()
+        self.load_label_encoder()
+        self.load_one_hot_encoder()
     
         
-    # Function to load the machine learning model
-    # lru_cache ensures the model is loaded only once to improve performance
-    @lru_cache(maxsize=1)
     def load_model(self) -> None:
         logging.info("Loading model...")
         if not os.path.exists(self.model_path):

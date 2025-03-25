@@ -4,3 +4,5 @@ data
 /ml_models
 .venv
 .env
+.ruff_cache
+notebooks/main.ipynb

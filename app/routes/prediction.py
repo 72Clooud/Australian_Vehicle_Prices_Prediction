@@ -14,12 +14,14 @@ router = APIRouter(
     tags=["Prediction"]
 )
 
-# Initialize the model handler
-model_handler = ModelHandler(
-    model_path=settings.MODEL_PATH,
-    one_hot_encoder_path=settings.ONE_HOT_ENCODER_PATH,
-    label_encoder_path=settings.LABEL_ENCODER_PATH,
-)
+@router.on_event("startup")
+def init_model():
+    global model_handler
+    model_handler = ModelHandler(
+        model_path=settings.MODEL_PATH,
+        one_hot_encoder_path=settings.ONE_HOT_ENCODER_PATH,
+        label_encoder_path=settings.LABEL_ENCODER_PATH,
+    )
 
 # Healthcheck endpoint to verify application status
 @router.get("/healthcheck")
